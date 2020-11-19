@@ -1,6 +1,23 @@
 #include "minish.h"
 char pwd[500];
 
+void execute(char** args){
+    int pid = fork();
+    if(pid < 0){
+        perror("Cannot create child process");
+        return;
+    }
+    if(pid == 0){ //child
+        char location[500];
+        strcpy(location, "/bin/");
+        strcat(location, args[0]);
+        int result = execvp(location, args);
+        if(result == -1){
+            perror("Cannot execute command (execvp error)");
+        }
+    }
+}
+
 char **get_cmd(char *cmd){
     char **args = NULL;
     args = (char **)malloc(10 * sizeof(char*));
@@ -48,7 +65,6 @@ void foo(char* str){
 */
 
 void execute_command(char* cmd){
-    printf("exec_cmd");
     char **args = NULL;
     args = get_cmd(cmd);
     if(args == NULL){
@@ -59,10 +75,8 @@ void execute_command(char* cmd){
         exit(0);
     }
     else{
-        int i=0;
-        while(args[i] != NULL){
-            printf("%s\n", args[i]);
-            i++;
+        if(args[0] != NULL){
+            execute(args);
         }
     }
     free(args);
