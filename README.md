@@ -30,7 +30,16 @@ It is correct because if `strcmp(args[0], "quit") == 0`, then the program will `
 
 ##### 3. Prompt
 ![ex_screenshot](./images/prompt.png)
-As you can see in the picture, the location of the file is printed in terminal. It is correct because `getcwd(pwd, 500)` is used.
+As you can see in the picture, the location of the file is printed in terminal. It is correct because `getcwd(pwd, 500)` function is used.
+
+##### 4. Redirection
+![ex_screenshot](./images/redirect.png)
+The result of `ls-al` is writed in a.txt.
+It was successful because `dup2(fd, STDOUT_FILENO);`function is used.
+
+##### 5. Pipe
+![ex_screenshot](./images/pipe.png)
+It didn't successful.. Just executed front side of the pipe.
 
 ### (d) Conclusion
-I made the basic `minish` which satisfies the minimum spec(100pts), but didn't made the additional requirement.
+I made the basic `minish` which satisfies the minimum spec without pipe, but didn't made the additional requirement.
